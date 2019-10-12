@@ -12,6 +12,7 @@ export interface Istate {
     visible?:boolean;
     title?:string;
     url?:string;
+    onListChange?:Function;
   }
   export default class Tile extends React.Component<Iprop,Istate> {
     constructor(props: Iprop) {
@@ -34,7 +35,7 @@ export interface Istate {
                 <Focusable onFocus={() => this.setState({active: true})}
                  onBlur={() => this.setState({active: false})} onEnterDown={(e:any, n:any) => this.onEnterDown(e, n)}>
                      <Paper className={'item ' + (this.state.active ? 'item-focus' : '')}>
-                     <Typography align="center" variant="h3" gutterBottom>
+                     <Typography align="center" variant="h5" gutterBottom>
                      {this.props.title}
       </Typography>
                      </Paper>

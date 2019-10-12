@@ -19,33 +19,42 @@ function MadeWithLove() {
 }
 export interface Istate {
   active: number;
+  lists:{url:string;title:string;}[];
 }
 export interface Iprop {
   icon?: string;
 }
 export class App extends React.Component<Iprop,Istate> {
-  private lists:{url:string;title:string;}[];
+ 
   constructor(props: any) {
     super(props);
 
-    this.state = {
-      active: -1,
-    }
+    let list = [];
     let tiles = window.localStorage.getItem("tiles");
     if(!tiles || JSON.parse(tiles).length ===0){
       //show some default tiles
-      this.lists = [{
+      list = [{
         url:"https://google.com",
         title:"Google"
       }];
     }else{
       // @ts-ignore
-    this.lists = JSON.parse(tiles);
+      list = JSON.parse(tiles);
     }
-     
+    this.state = {
+      active: -1,
+      lists:list
+    }
+    this.refresh = this.refresh.bind(this);
    
   }
-
+  refresh(){
+    let list = [];
+    let tiles = window.localStorage.getItem("tiles");
+    // @ts-ignore
+    list = JSON.parse(tiles);
+    this.setState({lists:list});
+  }
   changeFocusTo(index:number) {
     this.setState({active: index});
   }
@@ -65,10 +74,10 @@ export class App extends React.Component<Iprop,Istate> {
                 <Search/>
                 <VerticalList id="content" onBlur={() => this.onBlurLists()}>
                 <Grid container spacing={3}>
-                  {this.lists.map((list, i) =>
+                  {this.state.lists.map((list, i) =>
                      
                      
-                       <Tile  key={i} title={list.title} url={list.url}/>
+                       <Tile  key={i} title={list.title} url={list.url} onListChange={this.refresh}/>
                     
                   )}
                    </Grid>
