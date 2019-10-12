@@ -24,7 +24,7 @@ export interface Istate {
       }
       onEnterDown(event:any, navigation:any) {
         console.log('enter pressed');
-        window.open(this.props.url);
+        window.open(this.props.url,"_self");
       }
 
   render() {

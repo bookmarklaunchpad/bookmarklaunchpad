@@ -51373,12 +51373,18 @@ class Search extends React.Component {
     }
     onBlur() {
         this.setState({ active: "" });
+        // @ts-ignore
+        document.getElementById("AddTileInput").blur();
     }
     onFocus(name) {
         this.setState({ active: name });
         if (name === "input") {
             // @ts-ignore
             document.getElementById("AddTileInput").focus();
+        }
+        else {
+            // @ts-ignore
+            document.getElementById("AddTileInput").blur();
         }
     }
     onEnterDown(name) {
@@ -51454,7 +51460,7 @@ class Tile extends React.Component {
     }
     onEnterDown(event, navigation) {
         console.log('enter pressed');
-        window.open(this.props.url);
+        window.open(this.props.url, "_self");
     }
     render() {
         return (React.createElement(Grid_1.default, { item: true, xs: 3 },

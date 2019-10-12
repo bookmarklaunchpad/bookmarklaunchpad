@@ -25,6 +25,8 @@ export default class Search extends React.Component <Iprop,Istate>{
 
   onBlur() {
     this.setState({active: ""});
+     // @ts-ignore
+     document.getElementById("AddTileInput").blur();
   }
 
   onFocus(name:string) {
@@ -32,6 +34,9 @@ export default class Search extends React.Component <Iprop,Istate>{
     if(name === "input"){
          // @ts-ignore
          document.getElementById("AddTileInput").focus();
+    }else{
+         // @ts-ignore
+        document.getElementById("AddTileInput").blur();
     }
   }
 
