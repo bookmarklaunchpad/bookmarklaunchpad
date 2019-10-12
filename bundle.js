@@ -51421,7 +51421,7 @@ class Search extends React.Component {
         });
         return (React.createElement("div", { style: classes.divider },
             React.createElement(Paper_1.default, { style: classes.root },
-                React.createElement(InputBase_1.default, { id: "AddTileInput", style: classes.inputbase, placeholder: "Website URL", inputProps: { 'aria-label': 'Website URL' } }),
+                React.createElement(InputBase_1.default, { id: "AddTileInput", style: classes.inputbase, placeholder: "Website URL", disabled: this.state.active !== "input", inputProps: { disabled: this.state.active !== "input", 'aria-label': 'Website URL' } }),
                 React.createElement(react_key_navigation_1.Focusable, { style: classes.iconButton, onFocus: () => this.onFocus("button"), onBlur: () => this.onBlur(), onEnterDown: (e, n) => this.onEnterDown("button"), navDefault: true },
                     React.createElement(IconButton_1.default, { id: "AddTile", "aria-label": "add website" },
                         React.createElement("i", { style: classes.icon, className: "fa fa-plus-square" }))),

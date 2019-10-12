@@ -91,7 +91,8 @@ export default class Search extends React.Component <Iprop,Istate>{
              id="AddTileInput"
              style={classes.inputbase}
                 placeholder="Website URL"
-                inputProps={{ 'aria-label': 'Website URL' }}
+                disabled={this.state.active !=="input"}
+                inputProps={{ disabled:this.state.active !=="input",'aria-label': 'Website URL' }}
             />
              <Focusable style={classes.iconButton} onFocus={() => this.onFocus("button")} onBlur={() => this.onBlur()} onEnterDown={(e:any, n:any) => this.onEnterDown("button")} navDefault>
                 <IconButton id="AddTile"  aria-label="add website">
