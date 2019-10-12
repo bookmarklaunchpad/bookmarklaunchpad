@@ -51380,20 +51380,12 @@ class Search extends React.Component {
             // @ts-ignore
             document.getElementById("AddTileInput").focus();
         }
-        else {
-            // @ts-ignore
-            document.getElementById("AddTile").focus();
-        }
     }
     onEnterDown(name) {
         console.log('enter pressed');
         if (name === "input") {
             // @ts-ignore
             document.getElementById("AddTileInput").focus();
-        }
-        else {
-            // @ts-ignore
-            document.getElementById("AddTile").focus();
         }
     }
     render() {
@@ -51406,10 +51398,10 @@ class Search extends React.Component {
             },
             input: {
                 marginLeft: "5px",
-                flex: 1
             },
             inputbase: {
-                width: "100%"
+                marginLeft: "5px",
+                flex: 1
             },
             iconButton: {
                 color: this.state.active === "button" ? "#FFF" : "#666",
@@ -51423,11 +51415,13 @@ class Search extends React.Component {
         });
         return (React.createElement("div", { style: classes.divider },
             React.createElement(Paper_1.default, { style: classes.root },
-                React.createElement(react_key_navigation_1.Focusable, { style: classes.input, onFocus: () => this.onFocus("input"), onBlur: () => this.onBlur(), onEnterDown: (e, n) => this.onEnterDown("input"), navDefault: true },
-                    React.createElement(InputBase_1.default, { id: "AddTileInput", style: classes.inputbase, placeholder: "Website URL", inputProps: { 'aria-label': 'Website URL' } })),
+                React.createElement(InputBase_1.default, { id: "AddTileInput", style: classes.inputbase, placeholder: "Website URL", inputProps: { 'aria-label': 'Website URL' } }),
                 React.createElement(react_key_navigation_1.Focusable, { style: classes.iconButton, onFocus: () => this.onFocus("button"), onBlur: () => this.onBlur(), onEnterDown: (e, n) => this.onEnterDown("button"), navDefault: true },
                     React.createElement(IconButton_1.default, { id: "AddTile", "aria-label": "add website" },
-                        React.createElement("i", { style: classes.icon, className: "fa fa-plus-square" }))))));
+                        React.createElement("i", { style: classes.icon, className: "fa fa-plus-square" }))),
+                React.createElement(react_key_navigation_1.Focusable, { style: classes.input, onFocus: () => this.onFocus("input"), onBlur: () => this.onBlur(), onEnterDown: (e, n) => this.onEnterDown("input") },
+                    React.createElement(IconButton_1.default, { id: "AddTileInputKeyboard", "aria-label": "add website" },
+                        React.createElement("i", { style: classes.icon, className: "fa fa-keyboard-o" }))))));
     }
 }
 exports.default = Search;
@@ -51449,21 +51443,24 @@ const React = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 const Paper_1 = __webpack_require__(/*! @material-ui/core/Paper */ "./node_modules/@material-ui/core/esm/Paper/index.js");
 const Grid_1 = __webpack_require__(/*! @material-ui/core/Grid */ "./node_modules/@material-ui/core/esm/Grid/index.js");
 const react_key_navigation_1 = __webpack_require__(/*! react-key-navigation */ "./node_modules/react-key-navigation/build/index.js");
+const Typography_1 = __webpack_require__(/*! @material-ui/core/Typography */ "./node_modules/@material-ui/core/esm/Typography/index.js");
 class Tile extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             active: false
         };
+        this.onEnterDown = this.onEnterDown.bind(this);
     }
     onEnterDown(event, navigation) {
         console.log('enter pressed');
-        alert("open");
+        window.open(this.props.url);
     }
     render() {
         return (React.createElement(Grid_1.default, { item: true, xs: 3 },
             React.createElement(react_key_navigation_1.Focusable, { onFocus: () => this.setState({ active: true }), onBlur: () => this.setState({ active: false }), onEnterDown: (e, n) => this.onEnterDown(e, n) },
-                React.createElement(Paper_1.default, { className: 'item ' + (this.state.active ? 'item-focus' : '') }))));
+                React.createElement(Paper_1.default, { className: 'item ' + (this.state.active ? 'item-focus' : '') },
+                    React.createElement(Typography_1.default, { align: "center", variant: "h3", gutterBottom: true }, this.props.title)))));
     }
 }
 exports.default = Tile;
@@ -51502,7 +51499,18 @@ class App extends React.Component {
         this.state = {
             active: -1,
         };
-        this.lists = ["Title 1", "Title 2", "Title 3", "Title 4", "Title 1", "Title 1", "Title 1", "Title 1", "Title 1", "Title 1", "Title 1"];
+        let tiles = window.localStorage.getItem("tiles");
+        if (!tiles || JSON.parse(tiles).length === 0) {
+            //show some default tiles
+            this.lists = [{
+                    url: "https://google.com",
+                    title: "Google"
+                }];
+        }
+        else {
+            // @ts-ignore
+            this.lists = JSON.parse(tiles);
+        }
     }
     changeFocusTo(index) {
         this.setState({ active: index });
@@ -51520,7 +51528,7 @@ class App extends React.Component {
                                 React.createElement(react_key_navigation_1.VerticalList, { navDefault: true },
                                     React.createElement(Search_1.default, null),
                                     React.createElement(react_key_navigation_1.VerticalList, { id: "content", onBlur: () => this.onBlurLists() },
-                                        React.createElement(Grid_1.default, { container: true, spacing: 3 }, this.lists.map((list, i) => React.createElement(Tile_1.default, { key: i })))))))))),
+                                        React.createElement(Grid_1.default, { container: true, spacing: 3 }, this.lists.map((list, i) => React.createElement(Tile_1.default, { key: i, title: list.title, url: list.url })))))))))),
             React.createElement(Box_1.default, { my: 1 },
                 React.createElement(MadeWithLove, null))));
     }

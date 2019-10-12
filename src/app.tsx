@@ -24,15 +24,26 @@ export interface Iprop {
   icon?: string;
 }
 export class App extends React.Component<Iprop,Istate> {
-  private lists:string[];
+  private lists:{url:string;title:string;}[];
   constructor(props: any) {
     super(props);
 
     this.state = {
       active: -1,
     }
-
-    this.lists = ["Title 1", "Title 2", "Title 3", "Title 4","Title 1","Title 1","Title 1","Title 1","Title 1","Title 1","Title 1"]
+    let tiles = window.localStorage.getItem("tiles");
+    if(!tiles || JSON.parse(tiles).length ===0){
+      //show some default tiles
+      this.lists = [{
+        url:"https://google.com",
+        title:"Google"
+      }];
+    }else{
+      // @ts-ignore
+    this.lists = JSON.parse(tiles);
+    }
+     
+   
   }
 
   changeFocusTo(index:number) {
@@ -57,7 +68,7 @@ export class App extends React.Component<Iprop,Istate> {
                   {this.lists.map((list, i) =>
                      
                      
-                       <Tile  key={i} />
+                       <Tile  key={i} title={list.title} url={list.url}/>
                     
                   )}
                    </Grid>

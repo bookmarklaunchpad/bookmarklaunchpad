@@ -32,9 +32,6 @@ export default class Search extends React.Component <Iprop,Istate>{
     if(name === "input"){
          // @ts-ignore
          document.getElementById("AddTileInput").focus();
-    }else{
-         // @ts-ignore
-        document.getElementById("AddTile").focus();    
     }
   }
 
@@ -46,9 +43,6 @@ export default class Search extends React.Component <Iprop,Istate>{
         document.getElementById("AddTileInput").focus();
         
         
-    }else{
-         // @ts-ignore
-         document.getElementById("AddTile").focus();    
     }
     
     
@@ -67,11 +61,11 @@ export default class Search extends React.Component <Iprop,Istate>{
         },
         input: {
           marginLeft: "5px",
-          flex: 1
+          
         },
         inputbase: {
-            width: "100%"
-           
+            marginLeft: "5px",
+          flex: 1
           },
         iconButton: {
           color: this.state.active === "button"?"#FFF":"#666",
@@ -88,19 +82,23 @@ export default class Search extends React.Component <Iprop,Istate>{
       
           <div style={classes.divider}>
           <Paper style={classes.root}>
-            <Focusable style={classes.input} onFocus={() => this.onFocus("input")} onBlur={() => this.onBlur()} onEnterDown={(e:any, n:any) => this.onEnterDown("input")} navDefault>
             <InputBase 
              id="AddTileInput"
              style={classes.inputbase}
                 placeholder="Website URL"
                 inputProps={{ 'aria-label': 'Website URL' }}
             />
-            </Focusable>
-            <Focusable style={classes.iconButton} onFocus={() => this.onFocus("button")} onBlur={() => this.onBlur()} onEnterDown={(e:any, n:any) => this.onEnterDown("button")} navDefault>
+             <Focusable style={classes.iconButton} onFocus={() => this.onFocus("button")} onBlur={() => this.onBlur()} onEnterDown={(e:any, n:any) => this.onEnterDown("button")} navDefault>
                 <IconButton id="AddTile"  aria-label="add website">
                     <i style={classes.icon} className="fa fa-plus-square"></i>
                 </IconButton>
             </Focusable>
+            <Focusable style={classes.input} onFocus={() => this.onFocus("input")} onBlur={() => this.onBlur()} onEnterDown={(e:any, n:any) => this.onEnterDown("input")} >
+                <IconButton id="AddTileInputKeyboard"  aria-label="add website">
+                    <i style={classes.icon} className="fa fa-keyboard-o"></i>
+                </IconButton> 
+            </Focusable>
+           
             </Paper>
             </div>
      
