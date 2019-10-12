@@ -1,4 +1,5 @@
 import * as  React from 'react';
+import Paper from '@material-ui/core/Paper';
 
 import { Focusable, HorizontalList } from 'react-key-navigation';
 export interface Istate {
@@ -10,7 +11,7 @@ export interface Istate {
     visible?:boolean,
     title?:string
   }
-class ToogleItem extends React.Component<Iprop,Istate> {
+  export class ToogleItem extends React.Component<Iprop,Istate> {
     constructor(props: Iprop) {
         super(props);
     
@@ -18,12 +19,18 @@ class ToogleItem extends React.Component<Iprop,Istate> {
           active: false
         };
       }
+      onEnterDown(event:any, navigation:any) {
+        console.log('enter pressed');
+        alert("open");
+      }
 
   render() {
     return (
       <Focusable onFocus={() => this.setState({active: true})}
-                 onBlur={() => this.setState({active: false})}>
-        <div className={'item ' + (this.state.active ? 'item-focus' : '')}></div>
+                 onBlur={() => this.setState({active: false})} onEnterDown={(e:any, n:any) => this.onEnterDown(e, n)}>
+                   <Paper className={'item ' + (this.state.active ? 'item-focus' : '')}>
+                        A 
+                   </Paper>
       </Focusable>
     );
   }

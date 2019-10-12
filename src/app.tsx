@@ -3,12 +3,9 @@ import Container from "@material-ui/core/Container";
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import Link from "@material-ui/core/Link";
-import Paper from '@material-ui/core/Paper';
-import Button from "@material-ui/core/Button";
-import Navigation, {VerticalList, HorizontalList, Grid, Focusable} from 'react-key-navigation';
-
-import Sidebar from './Sidebar';
-import List from './List';
+import Grid from '@material-ui/core/Grid';
+import Navigation, {VerticalList, HorizontalList} from 'react-key-navigation';
+import Tile from './Tile';
 import Search from './Search';
 function MadeWithLove() {
   return (
@@ -35,7 +32,7 @@ export class App extends React.Component<Iprop,Istate> {
       active: -1,
     }
 
-    this.lists = ["Title 1", "Title 2", "Title 3", "Title 4"]
+    this.lists = ["Title 1", "Title 2", "Title 3", "Title 4","Title 1","Title 1","Title 1","Title 1","Title 1","Title 1","Title 1"]
   }
 
   changeFocusTo(index:number) {
@@ -52,14 +49,18 @@ export class App extends React.Component<Iprop,Istate> {
       <Navigation>
         <div id="container">
           <HorizontalList>
-            <Sidebar/>
             <div className="mainbox">
               <VerticalList navDefault>
                 <Search/>
                 <VerticalList id="content" onBlur={() => this.onBlurLists()}>
+                <Grid container spacing={3}>
                   {this.lists.map((list, i) =>
-                    <List key={i} title={list} onFocus={() => this.changeFocusTo(i)} visible={this.state.active !== null ? i >= this.state.active : true}/>
+                     
+                     
+                       <Tile  key={i} />
+                    
                   )}
+                   </Grid>
                 </VerticalList>
               </VerticalList>
             </div>
